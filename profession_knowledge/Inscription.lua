@@ -1,5 +1,8 @@
 local myname, ns = ...
 
+-- 83264 for random-drop of 225226 Striated Inkstone
+-- 83262 for 225227 Wax-Sealed Records in Deep-Lost Satchel
+
 local KNOWLEDGE = {
     note = "This can only be looted once per character.",
     currency=2790,
@@ -68,10 +71,4 @@ ns.RegisterPoints(ns.CITYOFTHREADS, {
         note="Inside",
         parent=true, levels=true, translate={[2256]=true},
     },
-    -- [] = {
-    --     quest=82636,
-    --     loot={224053}, -- Eight Views on Defense against Hostile Runes
-    --     note="Buy from {npc::}",
-    --     parent=true, levels=true, translate={[2256]=true},
-    -- },
 }, KNOWLEDGE)
