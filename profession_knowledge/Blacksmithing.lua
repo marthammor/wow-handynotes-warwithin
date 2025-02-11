@@ -6,19 +6,21 @@ local KNOWLEDGE = {
     requires = ns.conditions.Profession(ns.PROF_WW_BLACKSMITHING),
     -- active = ns.conditions.Profession(ns.PROF_WW_BLACKSMITHING, 25),
     group = "professionknowledge",
-    texture=ns.atlas_texture("VignetteLoot", {r=0.5,g=1,b=1,}),
+    atlas="worldquest-icon-blacksmithing",
+    backdrop=ns.atlas_texture("CircleMask", {r=0.5, g=1, b=1}),
+    border=ns.atlas_texture("AutoQuest-badgeborder", 1.1),
     -- minimap = true,
 }
 
 ns.RegisterPoints(ns.ISLEOFDORN, {
-    [59816183] = {
+    [59826191] = {
         quest=83848,
         loot={226276}, -- Ancient Earthen Anvil
         vignette=6433,
     },
 }, KNOWLEDGE)
 ns.RegisterPoints(ns.DORNOGAL, {
-    [47763204] = {
+    [47582623] = {
         quest=83849,
         loot={226277}, -- Dornogal Hammer
         vignette=6434,

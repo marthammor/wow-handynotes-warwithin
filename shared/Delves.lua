@@ -1,6 +1,9 @@
 local myname, ns = ...
 local _, myfullname = C_AddOns.GetAddOnInfo(myname)
 
+local HandyNotes = LibStub("AceAddon-3.0"):GetAddon("HandyNotes")
+local HBD = LibStub("HereBeDragons-2.0")
+
 local STURDY = ns.nodeMaker{
     lable="Sturdy Chest",
     group="delves",
@@ -30,7 +33,7 @@ ns.RegisterPoints(2269, { -- Earthcrawl Mines
 
 ns.RegisterPoints(2312, { -- Mycomancer Cavern
     [49882164] = {quest=83652, loot={223287}}, -- Atomized Salien Slime
-    [63304537] = {quest=83691, loot={226005}, note="Underwater"}, -- Ancient Tool
+    [63304537] = {quest=83691, loot={226005, 226003}, note="Underwater"}, -- Ancient Tool, Snake Oil
     [68724128] = {quest=83455, loot={221763}}, -- Viridian Charmcap
     [40706135] = {quest=83672, loot=CRYSTAL, note="Jump down"}, -- Resonance Crystals
 }, STURDY{
@@ -151,20 +154,87 @@ EventUtil.ContinueOnAddOnLoaded("Blizzard_WorldMap", function()
         [7872] = {40534, 40815, 40453}, -- The Underkeep (Nerubian)
         [7873] = {40535, 40811, 40452}, -- Tak-Rethan Abyss (Kobyss)
         [7874] = {40536, 40814, 40453}, -- The Spiral Weave (Nerubian)
+        [7875] = {}, -- Zekvir's Lair (Nerubian)
     }
-    EventRegistry:RegisterCallback("AreaPOIPin.MouseOver", function(_, pin, tooltipShown, areaPoiID, name)
-        -- print("AreaPOIPin.MouseOver", pin, tooltipShown, areaPoiID, name)
-        if ns.db.groupsHidden.delves then
-            return
-        end
-        if tooltipShown and delves[areaPoiID] then
-            local tooltip = GetAppropriateTooltip()
+    -- Bountiful:
+    delves[7779] = delves[7864] -- Fungal Folly
+    delves[7780] = delves[7869] -- Mycomancer Cavern
+    delves[7781] = delves[7865] -- Kriegval's Rest
+    delves[7782] = delves[7866] -- The Waterworks
+    delves[7783] = delves[7870] -- The Sinkhole
+    delves[7784] = delves[7873] -- Tak-Rethan Abyss
+    delves[7785] = delves[7868] -- Nightfall Sanctum
+    delves[7786] = delves[7872] -- The Underkeep
+    delves[7787] = delves[7863] -- Earthcrawl Mines
+    delves[7788] = delves[7867] -- The Dread Pit
+    delves[7789] = delves[7871] -- Skittering Breach
+    delves[7790] = delves[7874] -- The Spiral Weave
+    --
+    local function addToTooltip(tooltip, areaPoiID)
+        if delves[areaPoiID] and #delves[areaPoiID] > 0 then
             for i, achievement in ipairs(delves[areaPoiID]) do
                 -- we want to show the full criteria list for the first one (stories), and just the summary for the second
                 ns.tooltipHelpers.achievement(tooltip, achievement, i == 1)
             end
-            tooltip:AddDoubleLine(" ", myfullname:gsub("HandyNotes: ", ""), 0, 1, 1, 0, 1, 1)
-            tooltip:Show()
+            return true
+        end
+    end
+    EventRegistry:RegisterCallback("AreaPOIPin.MouseOver", function(_, pin, tooltipShown, areaPoiID, name)
+        -- print("AreaPOIPin.MouseOver", pin, tooltipShown, areaPoiID, name)
+        if not ns.db.groupsHidden.delves then
+            if tooltipShown and delves[areaPoiID] and #delves[areaPoiID] > 0 then
+                local tooltip = GetAppropriateTooltip()
+                addToTooltip(tooltip, areaPoiID)
+                tooltip:AddDoubleLine(" ", myfullname:gsub("HandyNotes: ", ""), 0, 1, 1, 0, 1, 1)
+                tooltip:Show()
+            end
         end
     end)
+
+    if C_AddOns.IsAddOnLoaded("DelverView") then
+        return
+    end
+    local OnTooltipShow = function(point, tooltip)
+        if point._tooltipWidgetSet then
+            GameTooltip_AddWidgetSet(tooltip, point._tooltipWidgetSet, 10)
+        end
+        addToTooltip(tooltip, point._areaPoiID)
+    end
+    local already = {}
+    EventRegistry:RegisterCallback("WorldMapOnShow", function()
+        local points = {}
+        for _, mapInfo in ipairs(C_Map.GetMapChildrenInfo(ns.KHAZALGAR)) do
+            if mapInfo.mapType == Enum.UIMapType.Zone then
+                for _, delveID in ipairs(C_AreaPoiInfo.GetDelvesForMap(mapInfo.mapID)) do
+                    if not already[delveID] then
+                        already[delveID] = true
+                        local info = C_AreaPoiInfo.GetAreaPOIInfo(mapInfo.mapID, delveID)
+                        local x, y = info.position:GetXY()
+                        local tx, ty
+                        if mapInfo.mapID == ns.ISLEOFDORN then
+                            -- special-case, as HereBeDragons can't translate these due to the weird stacked-maps structure of Khaz Algar
+                            local minX, maxX, minY, maxY = C_Map.GetMapRectOnMap(mapInfo.mapID, ns.KHAZALGAR)
+                            tx = Lerp(minX, maxX, x)
+                            ty = Lerp(minY, maxY, y)
+                        else
+                            tx, ty = HBD:TranslateZoneCoordinates(x, y, mapInfo.mapID, ns.KHAZALGAR)
+                        end
+                        if tx and ty then
+                            points[HandyNotes:getCoord(tx, ty)] = {
+                                label=info.name,
+                                atlas=info.atlasName, scale=1.5,
+                                note=info.description,
+                                group="delveentrances",
+                                OnTooltipShow=OnTooltipShow,
+                                _tooltipWidgetSet = info.tooltipWidgetSet,
+                                _areaPoiID = delveID,
+                            }
+                        end
+                    end
+                end
+            end
+        end
+        ns.RegisterPoints(ns.KHAZALGAR, points)
+        EventRegistry:UnregisterCallback("WorldMapOnShow", myname)
+    end, myname)
 end)

@@ -6,19 +6,21 @@ local KNOWLEDGE = {
     requires = ns.conditions.Profession(ns.PROF_WW_MINING),
     -- active = ns.conditions.Profession(ns.PROF_WW_MINING, 25),
     group = "professionknowledge",
-    texture=ns.atlas_texture("VignetteLoot", {r=0.5,g=1,b=1,}),
+    atlas="worldquest-icon-mining",
+    backdrop=ns.atlas_texture("CircleMask", {r=0.5, g=1, b=1}),
+    border=ns.atlas_texture("AutoQuest-badgeborder", 1.1),
     -- minimap = true,
 }
 
 ns.RegisterPoints(ns.ISLEOFDORN, {
-    [58136201] = {
+    [58186204] = {
         quest=83906,
         loot={226332}, -- Earthen Miner's Gavel
         vignette=6489,
     },
 }, KNOWLEDGE)
 ns.RegisterPoints(ns.DORNOGAL, {
-    [36647929] = {
+    [36717936] = {
         quest=83907,
         loot={226333}, -- Dornogal Chisel
         vignette=6490,

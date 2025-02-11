@@ -6,19 +6,21 @@ local KNOWLEDGE = {
     requires = ns.conditions.Profession(ns.PROF_WW_ENCHANTING),
     -- active = ns.conditions.Profession(ns.PROF_WW_ENCHANTING, 25),
     group = "professionknowledge",
-    texture=ns.atlas_texture("VignetteLoot", {r=0.5,g=1,b=1,}),
+    atlas="worldquest-icon-enchanting",
+    backdrop=ns.atlas_texture("CircleMask", {r=0.5, g=1, b=1}),
+    border=ns.atlas_texture("AutoQuest-badgeborder", 1.1),
     -- minimap = true,
 }
 
 ns.RegisterPoints(ns.ISLEOFDORN, {
-    [57636163] = {
+    [57596161] = {
         quest=83856,
         loot={226284}, -- Grinded Earthen Gem
         vignette=6441,
     },
 }, KNOWLEDGE)
 ns.RegisterPoints(ns.DORNOGAL, {
-    [58025691] = {
+    [58035698] = {
         quest=83859,
         loot={226285}, -- Silver Dornogal Rod
         vignette=6442,
@@ -27,7 +29,7 @@ ns.RegisterPoints(ns.DORNOGAL, {
 }, KNOWLEDGE)
 
 ns.RegisterPoints(ns.RINGINGDEEPS, {
-    [44612226] = { -- ?
+    [44612213] = {
         quest=83860,
         loot={226286}, -- Soot-Coated Orb
         vignette=6443,

@@ -6,19 +6,21 @@ local KNOWLEDGE = {
     requires = ns.conditions.Profession(ns.PROF_WW_TAILORING),
     -- active = ns.conditions.Profession(ns.PROF_WW_TAILORING, 25),
     group = "professionknowledge",
-    texture=ns.atlas_texture("VignetteLoot", {r=0.5,g=1,b=1,}),
+    atlas="worldquest-icon-tailoring",
+    backdrop=ns.atlas_texture("CircleMask", {r=0.5, g=1, b=1}),
+    border=ns.atlas_texture("AutoQuest-badgeborder", 1.1),
     -- minimap = true,
 }
 
 ns.RegisterPoints(ns.ISLEOFDORN, {
-    [56216120] = {
+    [56216102] = {
         quest=83923,
         loot={226349}, -- Earthen Tape Measure
         vignette=6506,
     },
 }, KNOWLEDGE)
 ns.RegisterPoints(ns.DORNOGAL, {
-    [61521852] = {
+    [61561850] = {
         quest=83922,
         loot={226348}, -- Dornogal Seam Ripper
         vignette=6505,
@@ -27,7 +29,7 @@ ns.RegisterPoints(ns.DORNOGAL, {
 }, KNOWLEDGE)
 
 ns.RegisterPoints(ns.RINGINGDEEPS, {
-    [48853286] = {
+    [48823286] = {
         quest=83924,
         loot={226350}, -- Runed Earthen Pins
         vignette=6507,
