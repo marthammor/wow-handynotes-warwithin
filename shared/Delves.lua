@@ -137,6 +137,51 @@ ns.RegisterPoints(2251, { -- The Waterworks
     achievement=40816, -- Discoveries
 })
 
+ns.RegisterPoints(2396, { -- Excavation Site 9
+    [73283990] = {quest=86343, loot={211007}}, -- Torchbearer's Greatcloak
+    [57024681] = {quest=86345, loot={226002}}, -- Expensive-Looking Find
+    [33575915] = {quest=86346, loot=CRYSTAL}, -- Resonance Crystals
+    [50906150] = {quest=86347, loot=CRYSTAL}, -- Resonance Crystals
+}, STURDY{
+    achievement=41100, -- Discoveries
+})
+
+-- Sidestreet Sluice
+ns.RegisterPoints(2420, { -- The Pits
+    [61536586] = {quest=86787, loot={211035}}, -- Secret-Dredger's Girdle
+    [74387426] = {quest=86788, loot={226001}}, -- Pure Gold Stein
+    [33437307] = {quest=86790, loot=CRYSTAL}, -- Resonance Crystals
+}, STURDY{
+    achievement=41101, -- Discoveries
+})
+ns.RegisterPoints(2422, { -- The High Decks
+    [77483948] = {quest=86789, loot=CRYSTAL, path=72753882}, -- Resonance Crystals
+}, STURDY{
+    achievement=41101, -- Discoveries
+})
+
+-- Archival Assault
+ns.RegisterPoints(2452, { -- The Arcane Conservatory
+    [62373798] = {quest=83692, loot={226005}, note="Waygate from lower level; {spell:1246323:Phase Cutter} down and land on the ledge at the edge of the room to reach it"}, -- Ancient Tool
+    [61941087] = {quest=83673, loot=CRYSTAL, note="May help to {spell:1246323:Phase Cutter} from the other chest on this level"},
+}, STURDY{
+    achievement=42679, -- Discoveries
+})
+-- ns.RegisterPoints(2454, { -- Mausoleum of Legends
+-- }, STURDY{
+--     achievement=42679, -- Discoveries
+-- })
+ns.RegisterPoints(2455, { -- Lower Chamber
+    [49709263] = {quest=92573, loot={226120}, note="{spell:1246323:Phase Cutter} through the barrier"}, -- Deployable Battle Supplies
+}, STURDY{
+    achievement=42679, -- Discoveries
+})
+ns.RegisterPoints(2476, { -- Crystal Chambers
+    [43906467] = {quest=90839, loot={221758, 221757, 221756, 221754, 221763}, note="Balanced on the pipe, {spell:1246323:Phase Cutter} from above. Gliding might be simpler."}, -- crafting blues
+}, STURDY{
+    achievement=42679, -- Discoveries
+})
+
 ----
 
 EventUtil.ContinueOnAddOnLoaded("Blizzard_WorldMap", function()
@@ -155,6 +200,11 @@ EventUtil.ContinueOnAddOnLoaded("Blizzard_WorldMap", function()
         [7873] = {40535, 40811, 40452}, -- Tak-Rethan Abyss (Kobyss)
         [7874] = {40536, 40814, 40453}, -- The Spiral Weave (Nerubian)
         [7875] = {}, -- Zekvir's Lair (Nerubian)
+        [8140] = {41099, 41101}, -- Sidestreet Sluice
+        [8142] = {}, -- Demolition Dome
+        [8143] = {41098, 41100}, -- Excavation Site Nine
+        [8274] = {42771, 42679}, -- Archival Assault
+        [8323] = {}, -- Voidrazor Sanctuary
     }
     -- Bountiful:
     delves[7779] = delves[7864] -- Fungal Folly
@@ -169,6 +219,9 @@ EventUtil.ContinueOnAddOnLoaded("Blizzard_WorldMap", function()
     delves[7788] = delves[7867] -- The Dread Pit
     delves[7789] = delves[7871] -- Skittering Breach
     delves[7790] = delves[7874] -- The Spiral Weave
+    delves[8181] = delves[8143] -- Excavation Site Nine
+    delves[8246] = delves[8140] -- Sidestreet Sluice
+    delves[8273] = delves[8274] -- Archival Assault
     --
     local function addToTooltip(tooltip, areaPoiID)
         if delves[areaPoiID] and #delves[areaPoiID] > 0 then
@@ -201,23 +254,25 @@ EventUtil.ContinueOnAddOnLoaded("Blizzard_WorldMap", function()
         addToTooltip(tooltip, point._areaPoiID)
     end
     local already = {}
-    EventRegistry:RegisterCallback("WorldMapOnShow", function()
-        local points = {}
-        for _, mapInfo in ipairs(C_Map.GetMapChildrenInfo(ns.KHAZALGAR)) do
+    EventRegistry:RegisterCallback("MapCanvas.MapSet", function(_, mapID)
+        if mapID ~= ns.KHAZALGAR then
+            return
+        end
+        local points
+        local childMaps = C_Map.GetMapChildrenInfo(ns.KHAZALGAR)
+        table.insert(childMaps, C_Map.GetMapInfo(ns.UNDERMINE)) -- it's a child of Ringing Deeps...
+        for _, mapInfo in ipairs(childMaps) do
             if mapInfo.mapType == Enum.UIMapType.Zone then
                 for _, delveID in ipairs(C_AreaPoiInfo.GetDelvesForMap(mapInfo.mapID)) do
                     if not already[delveID] then
                         already[delveID] = true
+                        points = points or {}
                         local info = C_AreaPoiInfo.GetAreaPOIInfo(mapInfo.mapID, delveID)
                         local x, y = info.position:GetXY()
-                        local tx, ty
-                        if mapInfo.mapID == ns.ISLEOFDORN then
-                            -- special-case, as HereBeDragons can't translate these due to the weird stacked-maps structure of Khaz Algar
-                            local minX, maxX, minY, maxY = C_Map.GetMapRectOnMap(mapInfo.mapID, ns.KHAZALGAR)
+                        local minX, maxX, minY, maxY = C_Map.GetMapRectOnMap(mapInfo.mapID, ns.KHAZALGAR)
+                        if minX then
                             tx = Lerp(minX, maxX, x)
                             ty = Lerp(minY, maxY, y)
-                        else
-                            tx, ty = HBD:TranslateZoneCoordinates(x, y, mapInfo.mapID, ns.KHAZALGAR)
                         end
                         if tx and ty then
                             points[HandyNotes:getCoord(tx, ty)] = {
@@ -234,7 +289,8 @@ EventUtil.ContinueOnAddOnLoaded("Blizzard_WorldMap", function()
                 end
             end
         end
-        ns.RegisterPoints(ns.KHAZALGAR, points)
-        EventRegistry:UnregisterCallback("WorldMapOnShow", myname)
+        if points then
+            ns.RegisterPoints(ns.KHAZALGAR, points)
+        end
     end, myname)
 end)

@@ -24,7 +24,7 @@ ns.RegisterPoints(ns.ISLEOFDORN, {
 }, boss)
 
 ns.RegisterPoints(ns.RINGINGDEEPS, {
-    [65008760] = { -- Aggregation of Horrors
+    [60868760] = { -- Aggregation of Horrors
         quest=83466,
         worldquest=82653,
         npc=220999,
@@ -79,3 +79,41 @@ ns.RegisterPoints(ns.CITYOFTHREADS, {
         },
     },
 }, boss)
+
+ns.RegisterPoints(ns.UNDERMINE, {
+    [49601720] = { -- The Gobfather
+        quest=85088, -- 89401 is the account-loot weekly, I think?
+        worldquest=85088, -- The Main Event, also
+        npc=231821,
+        loot={
+            232725, -- Pilot's Oiled Trousers
+            232726, -- Well-Trodden Mechanic's Shoes
+            232727, -- Cavern Stalker's Trophy Girdle
+            232728, -- Darkfuse Dinner Jacket
+            232729, -- Horn-Adorned Chausses
+            232730, -- Cauldron Master Cleats
+            232731, -- Steadfast Contender's Breastplate
+            232732, -- Champion's Gilded Stompers
+            232733, -- Gobfather's Gold Medal
+        },
+    },
+})
+
+ns.RegisterPoints(ns.KARESH, {
+    [71854851] = { -- Reshanor
+        quest=90783, -- 87352 tripped as well, account-wide, then 87354 on next kill
+        worldquest=87354,
+        npc=238319,
+        loot={
+            243038, -- Gaze of the Untethered Doom
+            243039, -- Devoured Magi's Cinch
+            243040, -- Crystalblight Legguards
+            243041, -- Umbral Stalker's Footpads
+            243042, -- Void-Bound Hauberk
+            243043, -- Shadowguard's Rift Wrap
+            243044, -- Feasting Fiend's Barbute
+            243045, -- Bygone Wastelander's Girdle
+            243046, -- Band of Boundless Hunger
+        },
+    },
+})
