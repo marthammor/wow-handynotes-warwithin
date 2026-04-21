@@ -1,5 +1,52 @@
 # Changelog
 
+## Changed in v105
+
+* Delves: listen for DelverView's specific event so its tooltips can be updated
+* Bring in systems improvements from [my Midnight plugin](https://www.curseforge.com/wow/addons/handynotes-midnight-treasures)
+    * Adjust display so that tooltip titles use normal blizzard color
+    * Change the tooltip anchor to point default to true
+    * Override reward item tooltip display to not use a MoneyFrame
+
+## Changed in v104
+
+* Undermine: add cosmetics and achievements to the S.C.R.A.P. Heaps
+* Bring in systems improvements from [my Midnight plugin](https://www.curseforge.com/wow/addons/handynotes-midnight-treasures)
+
+## Changed in v103
+
+* Delves: avoid a secret-values error that could happen when viewing the tooltip on delve entrances on the continent map
+* Bring in systems improvements from [my Midnight plugin](https://www.curseforge.com/wow/addons/handynotes-midnight-treasures)
+    * Performance improvement: only cache points on-load if you're in a relevant zone
+
+## Changed in v102
+
+* K'aresh: add the Ixthar's Legacy achievement, and improve various phased coordinates
+* Bring in systems improvements from [my Midnight plugin](https://www.curseforge.com/wow/addons/handynotes-midnight-treasures)
+    * Don't try to show a comparison tooltip if GameTooltip has become secret
+
+## Changed in v101
+
+* Bring in systems improvements from [my Midnight plugin](https://www.curseforge.com/wow/addons/handynotes-midnight-treasures)
+    * Fix for adding data to Blizzard's map pins (world quests, etc)
+    * Fixes for transmog item checking
+
+## Changed in v100
+
+* Hallowfall: show some Life on the Farm points
+* K'aresh: tweak a few coordinates
+* Bring in systems improvements from [my Midnight plugin](https://www.curseforge.com/wow/addons/handynotes-midnight-treasures)
+
+## Changed in v99
+
+* Ringing Deeps: fixed all coordinates, which were still a bit off after the zone was changed in 11.1.0
+* Hallowfall: added the Nightfarm Growthling and Thunder pets
+
+## Changed in v98
+
+* Ready for Midnight
+* Bring in systems improvements from [my Midnight plugin](https://www.curseforge.com/wow/addons/handynotes-midnight-treasures)
+
 ## Changed in v97
 
 * Updated for 11.2.7

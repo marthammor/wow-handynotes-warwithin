@@ -48,11 +48,12 @@ end)
 -- Currencies are all available from https://wago.tools/db2/CurrencyTypes
 -- They're named in the format `11 Z[zone-number] R[race-number]`
 
-local Race = function(questid, achievements, currencies)
+local Race = function(questid, achievements, currencies, vignette)
     local race = ns.Getterize{
         _questid = questid,
         _achievements = achievements,
         _currencies = currencies or {},
+        vignette=vignette,
         -- achievement=40354, -- Khaz Algar Completionist: Gold
         atlas="racing", scale=1.2,
         group="races",
@@ -105,12 +106,12 @@ ns.RegisterPoints(ns.ISLEOFDORN, {
 })
 ns.RegisterPoints(ns.RINGINGDEEPS, {
     -- quest, {achievements}, {currencies}
-    [38261131] = Race(80237, {20311, 20314, 20317}, {2941, 2947, 2953}), -- Earthenworks Weave
-    [39542744] = Race(80238, {20320, 20323, 20326}, {2942, 2948, 2954}), -- Ringing Deeps Ramble
-    [63593479] = Race(80239, {20329, 20332, 20335}, {2943, 2949, 2955}), -- Chittering Concourse
-    [49134686] = Race(80240, {20338, 20341, 20344}, {2944, 2950, 2956}), -- Cataract River Cruise
-    [62406868] = Race(80242, {20347, 20350, 20353}, {2945, 2951, 2957}), -- Taelloch Twist
-    [59517513] = Race(80243, {20356, 20359, 20362}, {2946, 2952, 2958}), -- Opportunity Point Amble
+    [36701131] = Race(80237, {20311, 20314, 20317}, {2941, 2947, 2953}), -- Earthenworks Weave
+    [38072744] = Race(80238, {20320, 20323, 20326}, {2942, 2948, 2954}), -- Ringing Deeps Ramble
+    [63753479] = Race(80239, {20329, 20332, 20335}, {2943, 2949, 2955}), -- Chittering Concourse
+    [48314686] = Race(80240, {20338, 20341, 20344}, {2944, 2950, 2956}), -- Cataract River Cruise
+    [62486868] = Race(80242, {20347, 20350, 20353}, {2945, 2951, 2957}), -- Taelloch Twist
+    [59397513] = Race(80243, {20356, 20359, 20362}, {2946, 2952, 2958}), -- Opportunity Point Amble
 })
 ns.RegisterPoints(ns.HALLOWFALL, {
     -- quest, {achievements}, {currencies}
@@ -140,7 +141,7 @@ ns.RegisterPoints(ns.UNDERMINE, {
     [39221137] = Race(85099, {40926, 40929}, {3124, 3125}), -- Scrapshop Shot
     [25504213] = Race(85101, {40932, 40935}, {3126, 3127}), -- Rags to Riches Rush
     -- Breaknecking (hide before No More Walking Here (87581?))
-    [26005300] = Race(85900, {41059, 41062}, {3181, 3182}), -- Breakneck Bolt
+    [26165298] = Race(85900, {41059, 41062}, {3181, 3182}), -- Breakneck Bolt
     [43507800] = Race(85902, {41065, 41068}, {3183, 3184}), -- Junkyard Jaunt
     [39505400] = Race(85904, {41071, 41074}, {3185, 3186}), -- Casino Cruise
     [47504400] = Race(85906, {41077, 41080}, {3187, 3188}), -- Sandy Scuttle

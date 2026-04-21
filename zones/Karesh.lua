@@ -59,6 +59,7 @@ ns.RegisterPoints(ns.KARESH, {
 		criteria=106244,
 		quest=86492,
 		loot={
+			ns.rewards.Achievement(42736, 106244), -- Ixthar's Legacy
 			243144, -- Reshii Crystal Fragments
 			-- ns.rewards.Currency(ns.CURRENCY_VALORSTONE, 5), ns.rewards.Currency(ns.CURRENCY_RESONANCE, 3),
 		},
@@ -132,11 +133,11 @@ ns.RegisterPoints(ns.KARESH, {
 		},
 		vignette=6673,
 	},
-	[53706400] = { -- Lightly-Dented Luggage (multiple spawn points?)
+	[55716411] = { -- Lightly-Dented Luggage (multiple spawn points? 53706400)
 		criteria=106279,
 		quest=91352,
 		loot={},
-		vignette=nil, -- 6674
+		vignette=6674,
 	},
 	[54462441] = { -- Sand-Worn Coffer
 		criteria=106280,
@@ -175,32 +176,32 @@ ns.RegisterPoints(ns.KARESH, {
 		},
 		vignette=6889, --
 	},
-	[52404660] = { -- Light-Soaked Cleaver
+	[52504677] = { -- Light-Soaked Cleaver
 		criteria=106281,
 		quest=90511,
 		loot={
 			243002, -- Light-Soaked Cleaver
 			243014, -- Light-Dimmed Cleaver
 		},
-		vignette=6919, --
+		vignette=6919,
 	},
-	[78004890] = { -- Efrat's Forgotten Bulwark
+	[77994894] = { -- Efrat's Forgotten Bulwark
 		criteria=106283,
 		quest=90514,
 		loot={
 			243004, -- Efrat's Forgotten Bulwark
 			243016, -- Efrat's Totally Abandonded Bulwark
 		},
-		vignette=6921, --
+		vignette=6921,
 	},
-	[51006510] = { -- Tulwar of the Golden Guard
+	[51056509] = { -- Tulwar of the Golden Guard
 		criteria=106284,
 		quest=90522,
 		loot={
 			243005, -- Tulwar of the Golden Guard
 			243017, -- Tulwar of the Pyrite Guard
 		},
-		vignette=6925, --
+		vignette=6925,
 	},
 	[78306150] = { -- Petrified Branch of Janaa
 		criteria=106285,
@@ -211,51 +212,51 @@ ns.RegisterPoints(ns.KARESH, {
 		},
 		vignette=6922, --
 	},
-	[49101800] = { -- Shadowguard Crusher
+	[49201805] = { -- Shadowguard Crusher
 		criteria=106286,
 		quest=90527,
 		loot={
 			243008, -- Shadowguard Crusher
 			243021, -- Shadowguard Bonker
 		},
-		vignette=6926, --
+		vignette=6926,
 	},
-	[80705260] = { -- Sufaadi Skiff Lantern
+	[80725267] = { -- Sufaadi Skiff Lantern
 		criteria=106287,
 		quest=90521,
 		loot={
 			243009, -- Sufaadi Skiff Lantern
 			243022, -- Sufaadi Skiff Candle
 		},
-		vignette=6923, --
+		vignette=6923,
 	},
-	[64404270] = { -- Korgorath's Talon
+	[64434269] = { -- Korgorath's Talon
 		criteria=106288,
 		quest=90532,
 		loot={
 			243153, -- Korgorath's Talon
 			243154, -- Korgorath's Broken Nail
 		},
-		vignette=6927, --
+		vignette=6927,
 	},
-	[56802410] = { -- Warglaive of the Audacious Hunter
+	[58432259] = { -- Warglaive of the Audacious Hunter
 		criteria=106289,
 		quest=91055,
 		loot={
 			245667, -- Warglaive of the Audacious Hunter
 			245668, -- Warglaive of the Subdued Tracker
 		},
-		vignette=6965, --
-		--path=56802410,
+		vignette=6965,
+		path=56802410,
 	},
-	[50803530] = { -- Phaseblade of the Void Marches
+	[50823534] = { -- Phaseblade of the Void Marches
 		criteria=106291,
 		quest=91057,
 		loot={
 			245671, -- Phaseblade of the Void Marches
 			245672, -- Blade of the Void Swamp
 		},
-		vignette=6967, --
+		vignette=6967,
 	},
 	[70007090] = { -- Bladed Rifle of Unfettered Momentum
 		criteria=106292,
@@ -281,14 +282,14 @@ ns.RegisterPoints(ns.KARESH_TAZAVESH, {
 		},
 		vignette=6920, --
 	},
-	[47406980] = { -- P.O.S.T. Master's Prototype Parcel and Postage Presser
+	[66048299] = { -- P.O.S.T. Master's Prototype Parcel and Postage Presser
 		criteria=106290,
 		quest=91056,
 		loot={
 			245669, -- P.O.S.T. Master's Prototype Parcel and Postage Presser
 			245670, -- P.O.S.T. Employee's Backup Stamp
 		},
-		vignette=6966, --
+		vignette=6966,
 	},
 }, {
 	achievement=42741, -- Treasures of K'aresh
@@ -387,7 +388,7 @@ ns.RegisterPoints(ns.KARESH, {
 	[63984597] = {},
 	[64865224] = {},
 	[64905495] = {},
-	[66054880] = {},
+	[66054880] = {note="Under the bridge"},
 	[68834777] = {},
 	[69755531] = {},
 	[70206061] = {},
@@ -494,9 +495,10 @@ ns.RegisterPoints(ns.KARESH, {
 	},
 	[63824363] = { -- Ixthar the Unblinking
 		criteria=106245,
-		quest=90596,
+		quest=90596, -- 90685
 		npc=232128,
 		loot={
+			ns.rewards.Achievement(42736, 106245), -- Ixthar's Legacy
 			240171, -- Observer's Soul Fetters
 			240213, -- Veiling Mana Shroud
 			240214, -- Miniature Reshii Sandgarden
@@ -516,7 +518,7 @@ ns.RegisterPoints(ns.KARESH, {
 	},
 	[52782081] = { -- Orith the Dreadful
 		criteria=106339,
-		quest=90595,
+		quest=90595, -- 90684
 		npc=232127,
 		loot={
 			240172, -- Depleted K'areshi Battery
@@ -594,9 +596,9 @@ ns.RegisterPoints(ns.KARESH, {
 		},
 		vignette=6639,
 	},
-	[65204985] = { -- Xarran the Binder
+	[65144998] = { -- Xarran the Binder
 		criteria=106349,
-		quest=90584,
+		quest=90584, -- 90672
 		npc=232199,
 		loot={
 			239451, -- Reshii Magi's Crown
@@ -628,9 +630,9 @@ ns.RegisterPoints(ns.KARESH, {
 		},
 		vignette=6637,
 	},
-	[65524418] = { -- Korgorath the Ravager
+	[65624423] = { -- Korgorath the Ravager
 		criteria=106335,
-		quest=90586,
+		quest=90586, -- 90675
 		npc=232077,
 		loot={
 			239448, -- Reshii Magi's Vestments
